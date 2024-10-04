@@ -1,0 +1,153 @@
+{
+  "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
+  "width": 700,
+  "height": 400,
+  "data": {
+    "url": "https://raw.githubusercontent.com/Yanhao-Troye/FIT3179_Homework_week10/main/Data/valuation_unicorn_data.csv",
+    "format": {"type": "csv"}
+  },
+  "params": [
+    {
+      "name": "industry_selection",
+      "value": "All",
+      "bind": {
+        "input": "select",
+        "options": [
+          "All",
+          "Internet Software & Services",
+          "Fintech",
+          "Artificial Intelligence",
+          "E-Commerce",
+          "Edtech",
+          "Health",
+          "Auto & Transportation",
+          "Consumer & Retail",
+          "Cybersecurity",
+          "Data Management & Analytics",
+          "Hardware",
+          "Mobile & Telecommunications",
+          "Other",
+          "Supply Chain, Logistics, & Delivery",
+          "Travel"
+        ],
+        "labels": [
+          "All Industries",
+          "Internet Software & Services",
+          "Fintech",
+          "Artificial Intelligence",
+          "E-Commerce",
+          "Edtech",
+          "Health",
+          "Auto & Transportation",
+          "Consumer & Retail",
+          "Cybersecurity",
+          "Data Management & Analytics",
+          "Hardware",
+          "Mobile & Telecommunications",
+          "Other",
+          "Supply Chain, Logistics, & Delivery",
+          "Travel"
+        ],
+        "name": "Select Industry: "
+      }
+    }
+  ],
+  "transform": [
+    {
+      "filter": "industry_selection == 'All' || datum.Industry == industry_selection"
+    }
+  ],
+  "encoding": {
+    "x": {
+      "field": "Industry",
+      "type": "nominal",
+      "title": "Industry",
+      "axis": {"labelAngle": 45}
+    },
+    "y": {
+      "field": "TotalValuation",
+      "type": "quantitative",
+      "title": "Total Valuation ($B)"
+    },
+    "tooltip": [
+      {"field": "Industry", "type": "nominal", "title": "Industry"},
+      {"field": "TotalValuation", "type": "quantitative", "title": "Total Valuation ($B)"}
+    ]
+  },
+  "layer": [
+    {
+      "mark": "circle",
+      "encoding": {
+        "size": {
+          "field": "TotalValuation",
+          "type": "quantitative",
+          "title": "Total Valuation",
+          "scale": {"range": [10, 1000]}
+        },
+        "color": {
+          "field": "Industry",
+          "type": "nominal",
+          "scale": {
+            "range": [
+              "#1f77b4", "#ff7f0e", "#2ca02c", "#d62728", "#9467bd",
+              "#8c564b", "#e377c2", "#7f7f7f", "#bcbd22", "#17becf",
+              "#aec7e8", "#ffbb78", "#98df8a", "#ff9896", "#c5b0d5",
+              "#c49c94", "#f7b6d2", "#c7c7c7", "#dbdb8d", "#9edae5"
+            ]
+          },
+          "legend": {"title": "Industry"}
+        }
+      }
+    },
+    {
+      "mark": {
+        "type": "text",
+        "align": "left",
+        "baseline": "middle",
+        "dx": -50,
+        "dy": -20,
+        "fontSize": 10,
+        "font": "sans-serif"
+      },
+      "encoding": {
+        "x": {
+          "datum": "Internet Software & Services"
+        },
+        "y": {
+          "datum": 300000
+        },
+        "text": {
+          "value": "Internet Software & Services has the most valuation"
+        },
+        "color": {
+          "value": "black"
+        }
+      }
+    },
+    {
+      "mark": {
+        "type": "text",
+        "align": "left",
+        "baseline": "middle",
+        "dx": -50,
+        "dy": 5,
+        "fontSize": 10,
+        "font": "sans-serif"
+      },
+      "encoding": {
+        "x": {
+          "datum": "Edtech"
+        },
+        "y": {
+          "datum": 45000
+        },
+        "text": {
+          "value": "Edtech has lowest valuation"
+        },
+        "color": {
+          "value": "black"
+        }
+      }
+    }
+  ]
+}
